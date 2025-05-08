@@ -135,13 +135,8 @@ def mostrar_ml():
         
         #CREATING A TREEVIEW WITH DUAL SCROLLBARS
         list_header = ['Data', 'Valor R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
-        # Define the atualizar_rota function
-        def atualizar_rota(lista):
-            # Placeholder implementation for updating data
-            # Replace this with actual database update logic
-            print(f"Updating record with data: {lista}")
-        
-        df_list = None()
+      
+        df_list = []
         
         global tree_ml
         

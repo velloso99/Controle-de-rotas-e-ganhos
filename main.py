@@ -25,8 +25,6 @@ frame_cima.grid(row=0, column=0, padx=0, pady=0, sticky=NSEW)
 frame_baixo = Frame(root, width=600, height=350, bg=co1, relief='flat')
 frame_baixo.grid(row=1, column=0, padx=0, pady=0, sticky=NSEW)
 
-
-
 #################---------TITULO------##################################################################################
 l_titulo= Label(frame_cima, text="Controle de Rotas e Ganhos", anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
 l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
@@ -43,5 +41,4 @@ bt_loggi.place(x=20, y=90)
 
 bt_colagem = Button(frame_baixo, command=None, text="Colagem", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_colagem.place(x=20, y=120)
-
-root.mainloop()
+                                                                                                        

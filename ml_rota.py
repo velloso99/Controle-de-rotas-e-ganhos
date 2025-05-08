@@ -31,20 +31,31 @@ ttk.Separator(mlrota, orient=HORIZONTAL).grid(row=3, columnspan=1, ipadx=680)
 frame_baixo = Frame(mlrota, width=900, height=350, bg=co1, relief='flat')
 frame_baixo.grid(row=4, column=0, padx=0, pady=0, sticky=NSEW)
 
+ttk.Separator(mlrota, orient=HORIZONTAL).grid(row=5, columnspan=1, ipadx=680)
 
+frame_tabela = Frame(mlrota, width=900, height=350, bg=co1, relief='flat')
+frame_tabela.grid(row=6, column=0, padx=0, pady=0, sticky=NSEW)
 #################---------TITULO------##################################################################################
 l_titulo=Label(frame_cima, text="Rota do Mercado Livre",anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
 l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
 
 #################---------BOTÕES------##################################################################################
 bt_adcionar = Button(frame_botao, command=None, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_adcionar.place(x=5, y=5)
+bt_adcionar.grid(row=0, column=1)
 
 bt_excluir = Button(frame_botao, command=None, text="Excluir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_excluir.place(x=95, y=5)
+bt_excluir.grid(row=0, column=2)
 
 bt_imprimir = Button(frame_botao, command=None, text="Imprimir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_imprimir.place(x=165, y=5)
+bt_imprimir.grid(row=0, column=3)
+
+bt_calc = Button(frame_botao, command=None, text="Calcular", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_calc.grid(row=0, column=4)
+
+bt_atualizar = Button(frame_botao, command=None, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_atualizar.grid(row=0, column=5)
+
+
 #################---------CONFIGURAÇÕES------##################################################################################
 def calendario():
     def pegar_data():
@@ -78,7 +89,35 @@ bt_calendario.place(x=10, y=10)
 entry_data = Entry(frame_baixo, width=10, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
 entry_data.place(x=70, y=10) 
 
+l_valor = Label(frame_baixo, text="Valor Rota:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_valor.place(x=10, y=40)
+e_valor= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_valor.place(x=90, y=40)
 
+l_comb_gasto = Label(frame_baixo, text="Comb. Gasto R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_comb_gasto.place(x=10, y=70)
+e_comb_gasto = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_comb_gasto.place(x=130, y=70)
+
+l_lucro = Label(frame_baixo, text="Lucro R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_lucro.place(x=10, y=100)
+e_lucro = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_lucro.place(x=130, y=100)
+
+l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_entregas.place(x=170, y=40)
+e_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_entregas.place(x=240, y=40)
+
+l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_entregas.place(x=170, y=70)
+e_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_entregas.place(x=240, y=70)
+
+l_lucro = Label(frame_baixo, text="Lucro %:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_lucro.place(x=170, y=100)
+e_lucro = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_lucro.place(x=240, y=100)
 
 
 

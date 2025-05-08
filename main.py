@@ -23,13 +23,21 @@ frame_cima.grid(row=0, column=0, padx=0, pady=0, sticky=NSEW)
 
 frame_baixo = Frame(root, width=600, height=350, bg=co1, relief='flat')
 frame_baixo.grid(row=1, column=0, padx=0, pady=0, sticky=NSEW)
+################---------CONFIGURAÇÃO------##################################################################################
+def abrir_mlrota():
+    # Caminho do arquivo que será aberto
+    mlrota= "ml_rota.py"
+    # Abre o novo arquivo
+    subprocess.Popen([sys.executable, mlrota])
+    # Fecha a janela atual
+    root.destroy()
 
 #################---------TITULO------##################################################################################
 l_titulo= Label(frame_cima, text="Controle de Rotas e Ganhos", anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
 l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
 
 #################---------BOTÕES------##################################################################################
-bt_ml = Button(frame_baixo, command=None, text="Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_ml = Button(frame_baixo, command=abrir_mlrota, text="Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_ml.place(x=20, y=30)
 
 bt_sp = Button(frame_baixo, command=None, text="Shooppee", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))

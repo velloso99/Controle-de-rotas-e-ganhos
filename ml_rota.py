@@ -64,13 +64,6 @@ bt_atualizar.grid(row=0, column=5)
 bt_voltar = Button(frame_botao, command=abrir_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_voltar.grid(row=0, column=6)
 #################---------CONFIGURAÇÕES------##################################################################################
-
-
-
-
-
-
-
 def calendario():
     def pegar_data():
         data_selecionada = cal.selection_get()
@@ -134,6 +127,51 @@ e_lucro = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
 e_lucro.place(x=240, y=100)
 
 
+#Tabela Alunos
+def mostrar_ml():
+    
+        app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0, relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
+        app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")  # Agora correto
+        
+        #CREATING A TREEVIEW WITH DUAL SCROLLBARS
+        list_header = ['Data', 'Valor R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
+        # Define the atualizar_rota function
+        def atualizar_rota(lista):
+            # Placeholder implementation for updating data
+            # Replace this with actual database update logic
+            print(f"Updating record with data: {lista}")
+        
+        df_list = None()
+        
+        global tree_ml
+        
+        tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
+        
+        #VERTICAL SCROLLBAR
+        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
+        #HORIZONTAL SCROLLBAR
+        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.yview)
+        
+        tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        tree_ml.grid(column=0, row=1, sticky='nsew')
+        vsb.grid(column=1, row=1, sticky='ns')
+        hsb.grid(column=0, row=2, sticky='ew')
+        frame_tabela.grid_rowconfigure(0,weight=12)
+        
+        hd=["center","center","center","center","center","center","center","center"]  
+        h = [50, 50, 50, 50, 50, 50, 50, 50]
+        n=0
+        
+        for col in list_header:
+            tree_ml.heading(col, text=col.title(), anchor=NW)
+            #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
+            tree_ml.column(col, width=h[n], anchor=hd[n])
+            
+            n+=1
+            
+            for item in df_list:
+                tree_ml.insert("", "end", values=item)
+mostrar_ml()
 
 
 

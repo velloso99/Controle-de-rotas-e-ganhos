@@ -1,43 +1,49 @@
 from pacotes import*
 
 
-mlrota = Tk()
-mlrota.title("Controle de Rotas e Ganhos")
-mlrota.geometry("900x400")
-mlrota.configure(background=co0)
-mlrota.resizable(width=False, height=False)
+ml_rota = Tk()
+ml_rota.title("Controle de Rotas e Ganhos")
+ml_rota.geometry("900x400")
+ml_rota.configure(background=co0)
+ml_rota.resizable(width=False, height=False)
 largura_root= 900
 altura_root= 400
 #obter tamanho da tela
-largura_tela = mlrota.winfo_screenwidth()
-altura_tela = mlrota.winfo_screenheight()
+largura_tela = ml_rota.winfo_screenwidth()
+altura_tela = ml_rota.winfo_screenheight()
 # Calcular posição para centralizar
 pos_x = ( largura_tela-largura_root )//2
 pos_y = (altura_tela - altura_root)//2
 # Definir geometria da janela (LxA+X+Y)
-mlrota.geometry(f"{largura_root}x{altura_root}+{pos_x}+{pos_y}")
+ml_rota.geometry(f"{largura_root}x{altura_root}+{pos_x}+{pos_y}")
 
 ###############---------FRAME------##################################################################################
-frame_cima = Frame(mlrota, width=900, height=50, bg=co1, relief='flat')
+frame_cima = Frame(ml_rota, width=900, height=50, bg=co1, relief='flat')
 frame_cima.grid(row=0, column=0, padx=0, pady=0, sticky=NSEW)
 
-ttk.Separator(mlrota, orient=HORIZONTAL).grid(row=1, columnspan=1, ipadx=680)
+ttk.Separator(ml_rota, orient=HORIZONTAL).grid(row=1, columnspan=1, ipadx=680)
 
-frame_botao = Frame(mlrota, width=900, height=50, bg=co1, relief='flat')
+frame_botao = Frame(ml_rota, width=900, height=50, bg=co1, relief='flat')
 frame_botao.grid(row=2, column=0, padx=0, pady=0, sticky=NSEW)
 
-ttk.Separator(mlrota, orient=HORIZONTAL).grid(row=3, columnspan=1, ipadx=680)
+ttk.Separator(ml_rota, orient=HORIZONTAL).grid(row=3, columnspan=1, ipadx=680)
 
-frame_baixo = Frame(mlrota, width=900, height=350, bg=co1, relief='flat')
+frame_baixo = Frame(ml_rota, width=900, height=350, bg=co1, relief='flat')
 frame_baixo.grid(row=4, column=0, padx=0, pady=0, sticky=NSEW)
 
-ttk.Separator(mlrota, orient=HORIZONTAL).grid(row=5, columnspan=1, ipadx=680)
+ttk.Separator(ml_rota, orient=HORIZONTAL).grid(row=5, columnspan=1, ipadx=680)
 
-frame_tabela = Frame(mlrota, width=900, height=350, bg=co1, relief='flat')
+frame_tabela = Frame(ml_rota, width=900, height=350, bg=co1, relief='flat')
 frame_tabela.grid(row=6, column=0, padx=0, pady=0, sticky=NSEW)
 #################---------TITULO------##################################################################################
 l_titulo=Label(frame_cima, text="Rota do Mercado Livre",anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
 l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
+
+#################---------CONFIGURAÇÕES BOTÕES------##################################################################################
+def abrir_painel():
+    painel = "main.py"  # nome do script a ser aberto
+    subprocess.Popen([sys.executable, painel])
+    ml_rota.destroy()  # fecha a janela atual
 
 #################---------BOTÕES------##################################################################################
 bt_adcionar = Button(frame_botao, command=None, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
@@ -55,8 +61,16 @@ bt_calc.grid(row=0, column=4)
 bt_atualizar = Button(frame_botao, command=None, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_atualizar.grid(row=0, column=5)
 
-
+bt_voltar = Button(frame_botao, command=abrir_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_voltar.grid(row=0, column=6)
 #################---------CONFIGURAÇÕES------##################################################################################
+
+
+
+
+
+
+
 def calendario():
     def pegar_data():
         data_selecionada = cal.selection_get()
@@ -125,4 +139,4 @@ e_lucro.place(x=240, y=100)
 
 
 
-mlrota.mainloop()
+ml_rota.mainloop()

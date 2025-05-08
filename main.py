@@ -33,16 +33,25 @@ bt_ml = Button(frame_baixo, command=None, text="Mercado Livre", bd=9, bg=co1, fg
 bt_ml.place(x=20, y=30)
 
 bt_sp = Button(frame_baixo, command=None, text="Shooppee", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_sp.place(x=20, y=70)
-
-#bt_loggi = Button(frame_baixo, command=None, text="Loggi", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-#bt_loggi.place(x=20, y=80)
+bt_sp.place(x=140, y=30)
 
 bt_colagem = Button(frame_baixo, command=None, text="Colagem", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_colagem.place(x=20, y=110)
+bt_colagem.place(x=230, y=30)
 
-bt_calmensal = Button(frame_baixo, command=None, text="Calculo Mensal", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_calmensal.place(x=140, y=30)
+bt_abast = Button(frame_baixo, command=None, text="Abastecimento", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_abast.place(x=20, y=70)
+
+bt_lucroanual = Button(frame_baixo, command=None, text="Lucro Anual", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_lucroanual.place(x=140, y=70)
+
+bt_lucpormes = Button(frame_baixo, command=None, text="Lucro por Mês", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_lucpormes.place(x=20, y=110)
+
+bt_contas = Button(frame_baixo, command=None, text="Contas", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_contas.place(x=240, y=70)
+
+bt_contaml = Button(frame_baixo, command=None, text="Conta Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_contaml.place(x=310, y=30)
 
 
 

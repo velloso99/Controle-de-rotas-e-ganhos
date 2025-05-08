@@ -32,10 +32,16 @@ l_titulo= Label(frame_cima, text="Controle de Rotas e Ganhos", anchor=CENTER, fo
 l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
 
 #################---------BOTÕES------##################################################################################
+bt_ml = Button(frame_baixo, command=None, text="Mercado Livre", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_ml.place(x=20, y=30)
 
+bt_sp = Button(frame_baixo, command=None, text="Shooppee", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_sp.place(x=20, y=60)
 
+bt_loggi = Button(frame_baixo, command=None, text="Loggi", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_loggi.place(x=20, y=90)
 
-
-
+bt_colagem = Button(frame_baixo, command=None, text="Colagem", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_colagem.place(x=20, y=120)
 
 root.mainloop()

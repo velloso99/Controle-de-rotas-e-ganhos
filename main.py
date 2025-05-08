@@ -41,4 +41,7 @@ bt_loggi.place(x=20, y=90)
 
 bt_colagem = Button(frame_baixo, command=None, text="Colagem", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_colagem.place(x=20, y=120)
-                                                                                                        
+
+bt_calmensal = Button(frame_baixo, command=None, text="Calculo Mensal", bd=3, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_calmensal.place(x=50, y=30)
+                                                                                                                                       

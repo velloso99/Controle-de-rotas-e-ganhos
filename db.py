@@ -13,7 +13,7 @@ except sqlite3.Error as e:
 #Tabela Rota Mercado lIvre
 try:
     with con:
-        cur= con.cursor()
+        cur = con.cursor()
         cur.execute("""
             CREATE TABLE IF NOT EXISTS Rota_Mercado_Livre(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,10 +26,11 @@ try:
                 entregas TEXT,
                 devolvidas TEXT,
                 total TEXT
-            )""")
-        print("Tabela Rota Mercado Livre criado com sucesso!")
+            )
+        """)
+        print("Tabela Rota Mercado Livre criada com sucesso!")
 except sqlite3.Error as e:
-    print("Erro ao criar Rota Mercado Livre!")
+    print("Erro ao criar Rota Mercado Livre:", e)
     
 #Tabela Rota Mercado lIvre
 try:

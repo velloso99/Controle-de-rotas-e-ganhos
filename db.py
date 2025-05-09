@@ -23,7 +23,7 @@ try:
                 km TEXT,
                 valor_bomba TEXT,
                 lucro TEXT,
-                entregues TEXT,
+                entreguas TEXT,
                 devolvidas TEXT,
                 total TEXT
             )""")
@@ -44,7 +44,7 @@ try:
                 km TEXT,
                 valor_bomba TEXT,
                 lucro TEXT,
-                entregues TEXT,
+                entreguas TEXT,
                 devolvidas TEXT,
                 total TEXT
             )""")

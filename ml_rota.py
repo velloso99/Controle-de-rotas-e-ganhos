@@ -56,19 +56,23 @@ def calcular_media_combustivel():
         valor_rota = float(e_valor_rota.get())
         km = float(e_km.get())
         valor_bomba = float(e_v_comb.get())
-        lucro = e_lucro.get()
-        entregue = e_entregas.get()
-        devolvidas = e_dev.get()
-        
-        
+        entregue = int(e_entregas.get())
+        devolvidas = int(e_dev.get())
 
-        media = (km / 10) * valor_bomba
-        # Cálculo do lucro
-        lucro = valor_rota - media
+        # Calcula total de entregas realizadas
+        total_entregas = entregue - devolvidas
+        e_Total_entregas.delete(0, END)
+        e_Total_entregas.insert(0, str(total_entregas))
 
-        # Exibe o resultado em um Entry chamado e_media_comb
+        # Calcula o gasto com combustível (média de 10 km por litro)
+        gasto_combustivel = (km / 10) * valor_bomba
+
+        # Calcula o lucro: valor da rota - gasto com combustível
+        lucro = valor_rota - gasto_combustivel
+
+        # Mostra o lucro no campo de lucro
         e_lucro.delete(0, END)
-        e_lucro.insert(0, f"{media:.2f}")
+        e_lucro.insert(0, f"{lucro:.2f}")
 
     except ValueError:
         messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
@@ -95,7 +99,7 @@ def cadastrar_dados():
             return
 
     # Inserindo no banco de dados
-    criar_dados(lista)
+    criar_dados_ml(lista)
 
     messagebox.showinfo("Sucesso", "Dados cadastrados com sucesso!")
 

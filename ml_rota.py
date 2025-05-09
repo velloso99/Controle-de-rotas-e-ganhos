@@ -1,4 +1,6 @@
 from pacotes import*
+from views import*
+import sqlite3
 
 
 ml_rota = Tk()
@@ -56,8 +58,27 @@ def cadastrar_dados():
     entregas = e_entregas.get()
     devolvidas = e_dev.get()
     total = e_total.get()
-        
-    
+
+    lista = [data, valor_rota, km, comb, lucro, entregas, devolvidas, total]
+    # Verifica se algum campo está vazio
+    for i in lista:
+        if i == "":
+            messagebox.showerror("Erro", "Preencha todos os campos!")
+            return
+   # Inserindo no banco de dados
+    criar_dados(lista)
+   
+    messagebox.showinfo("Sucesso", "Dados cadastrados com sucesso!")
+    # Limpa os campos após o cadastro
+    entry_data.delete(0, END)
+    e_valor.delete(0, END)
+    e_km.delete(0, END)
+    e_comb_gasto.delete(0, END)
+    e_lucro.delete(0, END)
+    e_entregas.delete(0, END)
+    e_dev.delete(0, END)
+    e_total.delete(0, END)
+
 
 #################---------BOTÕES------##################################################################################
 bt_adicionar = Button(frame_botao, command=cadastrar_dados, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))

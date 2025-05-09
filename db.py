@@ -18,17 +18,37 @@ try:
             CREATE TABLE IF NOT EXISTS Rota_Mercado_Livre(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 data TEXT,
+                dia_semna TEXT,
                 valor_rota TEXT,
                 km TEXT,
                 valor_bomba TEXT,
-                valor_total TEXT,
                 lucro TEXT,
                 entregues TEXT,
                 devolvidas TEXT,
+                total TEXT
             )""")
         print("Tabela Rota Mercado Livre criado com sucesso!")
 except sqlite3.Error as e:
     print("Erro ao criar Rota Mercado Livre!")
     
-    
+#Tabela Rota Mercado lIvre
+try:
+    with con:
+        cur= con.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS Rota_Shoppee(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                data TEXT,
+                dia_semna TEXT,
+                valor_rota TEXT,
+                km TEXT,
+                valor_bomba TEXT,
+                lucro TEXT,
+                entregues TEXT,
+                devolvidas TEXT,
+                total TEXT
+            )""")
+        print("Tabela Rota Mercado Livre criado com sucesso!")
+except sqlite3.Error as e:
+    print("Erro ao criar Rota Mercado Livre!")    
     

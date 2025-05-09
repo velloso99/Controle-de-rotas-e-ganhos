@@ -3,6 +3,7 @@ from views import*
 import sqlite3
 
 
+
 ml_rota = Tk()
 ml_rota.title("Controle de Rotas e Ganhos")
 ml_rota.geometry("900x400")
@@ -50,50 +51,63 @@ def abrir_painel():
 ################---------CONFIGURAÇÃO DE DADOS------##################################################################################
 
 
-def calcular_media_comb():
+def calcular_media_combustivel():
     try:
+        valor_rota = float(e_valor_rota.get())
         km = float(e_km.get())
-        valor_comb = float(e_v_comb.get())
-        media = (km / 10) * valor_comb
-        e_comb_gasto.delete(0, END)         # limpa o campo anterior
-        e_comb_gasto.insert(0, f"{media:.2f}") # insere o valor calculado com 2 casas decimais
+        valor_bomba = float(e_v_comb.get())
+        lucro = e_lucro.get()
+        entregue = e_entregas.get()
+        devolvidas = e_dev.get()
+        
+        
+
+        media = (km / 10) * valor_bomba
+        # Cálculo do lucro
+        lucro = valor_rota - media
+
+        # Exibe o resultado em um Entry chamado e_media_comb
+        e_lucro.delete(0, END)
+        e_lucro.insert(0, f"{media:.2f}")
+
     except ValueError:
-        e_comb_gasto.delete(0, END)
-        e_comb_gasto.insert(0, "Erro")
-        media = (km / 10) * valor_comb
+        messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
+
 
 
 
 def cadastrar_dados():
-    
     data = entry_data.get()
-    valor_rota = e_valor.get()
+    valor_rota = e_valor_rota.get()
     km = e_km.get()
-    comb = e_comb_gasto.get()
+    valor_bomba = e_v_comb.get()
     lucro = e_lucro.get()
     entregas = e_entregas.get()
     devolvidas = e_dev.get()
-    total = e_total.get()
+    total = e_Total_entregas.get()
 
-    lista = [data, valor_rota, km, comb, lucro, entregas, devolvidas, total]
+    lista = [data, valor_rota, km, valor_bomba, lucro, entregas, devolvidas, total]
+
     # Verifica se algum campo está vazio
     for i in lista:
         if i == "":
             messagebox.showerror("Erro", "Preencha todos os campos!")
             return
-   # Inserindo no banco de dados
+
+    # Inserindo no banco de dados
     criar_dados(lista)
-   
+
     messagebox.showinfo("Sucesso", "Dados cadastrados com sucesso!")
+
     # Limpa os campos após o cadastro
     entry_data.delete(0, END)
-    e_valor.delete(0, END)
+    e_valor_rota.delete(0, END)
     e_km.delete(0, END)
-    e_comb_gasto.delete(0, END)
+    e_v_comb.delete(0, END)           # <<< adicionado
     e_lucro.delete(0, END)
     e_entregas.delete(0, END)
     e_dev.delete(0, END)
-    e_total.delete(0, END)
+    e_Total_entregas.delete(0, END)
 
 
 #################---------BOTÕES------##################################################################################
@@ -106,10 +120,10 @@ bt_excluir.grid(row=0, column=2)
 bt_imprimir = Button(frame_botao, command=None, text="Imprimir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_imprimir.grid(row=0, column=3)
 
-bt_calc = Button(frame_botao, command=None, text="Calcular", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_calc = Button(frame_botao, command=calcular_media_combustivel, text="Calcular", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_calc.grid(row=0, column=4)
 
-bt_rela = Button(frame_botao, command=abrir_painel, text="Relatório", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_rela = Button(frame_botao, command=None, text="Relatório", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_rela.grid(row=0, column=5)
 
 bt_atualizar = Button(frame_botao, command=None, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
@@ -123,6 +137,23 @@ def calendario():
         data_selecionada = cal.selection_get()
         entry_data.delete(0, END)
         entry_data.insert(0, data_selecionada.strftime("%d/%m/%Y"))
+        
+        # Mostrar automaticamente o dia da semana:
+        dia_semana = data_selecionada.strftime("%A")  # Dia da semana em inglês
+        dias_traduzidos = {
+            "Monday": "Segunda-feira",
+            "Tuesday": "Terça-feira",
+            "Wednesday": "Quarta-feira",
+            "Thursday": "Quinta-feira",
+            "Friday": "Sexta-feira",
+            "Saturday": "Sábado",
+            "Sunday": "Domingo"
+        }
+        dia_semana_pt = dias_traduzidos[dia_semana]
+        
+        e_d_semana.delete(0, END)
+        e_d_semana.insert(0, dia_semana_pt)
+
         calendario_root.destroy()
 
     calendario_root = Toplevel()
@@ -140,12 +171,7 @@ def calendario():
     cal = Calendar(calendario_root, selectmode="day", date_pattern="dd/mm/yyyy")
     cal.pack(pady=20)
 
-    Button(calendario_root, text="Selecionar", command=pegar_data).pack(pady=10) # Botão para selecionar a data
-
-
-    
-
-   
+    Button(calendario_root, text="Selecionar", command=pegar_data).pack(pady=10)
 
 #################--------LABEL------##################################################################################
 bt_calendario = Button(frame_baixo, text="Data", command=calendario)
@@ -153,25 +179,30 @@ bt_calendario.place(x=10, y=10)
 entry_data = Entry(frame_baixo, width=10, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
 entry_data.place(x=70, y=10) 
 
-l_valor = Label(frame_baixo, text="Valor Rota:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_valor.place(x=10, y=40)
-e_valor= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
-e_valor.place(x=90, y=40)
+l_d_semana = Label(frame_baixo, text="Dia da Semana:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_d_semana.place(x=190, y=10)
+e_d_semana = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_d_semana.place(x=305, y=10)
+
+l_v_comb = Label(frame_baixo, text="Valor da Bomba R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_v_comb.place(x=390, y=10)
+e_v_comb = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_v_comb.place(x=520, y=10)
+
+l_valor_rota = Label(frame_baixo, text="Valor Rota:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_valor_rota.place(x=10, y=40)
+e_valor_rota= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_valor_rota.place(x=90, y=40)
 
 l_km = Label(frame_baixo, text="KM:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_km.place(x=10, y=70)
 e_km= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
 e_km.place(x=90, y=70)
 
-l_comb_gasto = Label(frame_baixo, text="Comb. Gasto R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_comb_gasto.place(x=10, y=100)
-e_comb_gasto = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_comb_gasto.place(x=130, y=100)
-
 l_lucro = Label(frame_baixo, text="Lucro R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_lucro.place(x=10, y=130)
-e_lucro = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_lucro.place(x=130, y=130)
+l_lucro.place(x=10, y=100)
+e_lucro = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_lucro.place(x=90, y=100)
 
 l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_entregas.place(x=170, y=40)
@@ -183,56 +214,52 @@ l_dev.place(x=170, y=70)
 e_dev = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
 e_dev.place(x=250, y=70)
 
-l_total = Label(frame_baixo, text="Total %:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_total.place(x=190, y=100)
-e_total = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_total.place(x=260, y=100)
+l_Total_entregas = Label(frame_baixo, text="Total %:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_Total_entregas.place(x=190, y=100)
+e_Total_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_Total_entregas.place(x=260, y=100)
 
-l_v_comb = Label(frame_baixo, text="Valor da Bomba R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_v_comb.place(x=190, y=10)
-e_v_comb = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
-e_v_comb.place(x=325, y=10)
 
 
 #Tabela Alunos
 def mostrar_ml():
     
-        app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0, relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
-        app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")  # Agora correto
+    app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0, relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
+    app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")  # Agora correto
         
-        #CREATING A TREEVIEW WITH DUAL SCROLLBARS
-        list_header = ['Data', 'Valor R$', 'Valor bomba R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
+    #CREATING A TREEVIEW WITH DUAL SCROLLBARS
+    list_header = ['Data', 'Valor R$', 'Valor bomba R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
 
-        df_list = ver_dados()
+    df_list = ver_dados()
         
-        global tree_ml
+    global tree_ml
         
-        tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
+    tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
         
-        #VERTICAL SCROLLBAR
-        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
-        #HORIZONTAL SCROLLBAR
-        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.yview)
+    #VERTICAL SCROLLBAR
+    vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
+    #HORIZONTAL SCROLLBAR
+    hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.yview)
         
-        tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-        tree_ml.grid(column=0, row=1, sticky='nsew')
-        vsb.grid(column=1, row=1, sticky='ns')
-        hsb.grid(column=0, row=2, sticky='ew')
-        frame_tabela.grid_rowconfigure(0,weight=12)
+    tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+    tree_ml.grid(column=0, row=1, sticky='nsew')
+    vsb.grid(column=1, row=1, sticky='ns')
+    hsb.grid(column=0, row=2, sticky='ew')
+    frame_tabela.grid_rowconfigure(0,weight=12)
         
-        hd=["center","center","center","center","center","center","center","center","center"]  
-        h = [50, 50, 50, 50, 50, 50, 50, 50,50]
-        n=0
+    hd=["center","center","center","center","center","center","center","center","center"]  
+    h = [50, 50, 50, 50, 50, 50, 50, 50,50]
+    n=0
         
-        for col in list_header:
-            tree_ml.heading(col, text=col.title(), anchor=NW)
-            #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
-            tree_ml.column(col, width=h[n], anchor=hd[n])
+    for col in list_header:
+        tree_ml.heading(col, text=col.title(), anchor=NW)
+        #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
+        tree_ml.column(col, width=h[n], anchor=hd[n])
             
-            n+=1
+        n+=1
             
-            for item in df_list:
-                tree_ml.insert("", "end", values=item)
+        for item in df_list:
+            tree_ml.insert("", "end", values=item)
 mostrar_ml()
 
 

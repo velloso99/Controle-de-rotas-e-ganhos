@@ -18,12 +18,12 @@ try:
             CREATE TABLE IF NOT EXISTS Rota_Mercado_Livre(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 data TEXT,
-                dia_semna TEXT,
+                dia_semana TEXT,
                 valor_rota TEXT,
                 km TEXT,
                 valor_bomba TEXT,
                 lucro TEXT,
-                entreguas TEXT,
+                entregas TEXT,
                 devolvidas TEXT,
                 total TEXT
             )""")
@@ -39,16 +39,16 @@ try:
             CREATE TABLE IF NOT EXISTS Rota_Shoppee(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 data TEXT,
-                dia_semna TEXT,
+                dia_semana TEXT,
                 valor_rota TEXT,
                 km TEXT,
                 valor_bomba TEXT,
                 lucro TEXT,
-                entreguas TEXT,
+                entregas TEXT,
                 devolvidas TEXT,
                 total TEXT
             )""")
-        print("Tabela Rota Mercado Livre criado com sucesso!")
+        print("Tabela Rota Shoppee criada com sucesso!")
 except sqlite3.Error as e:
-    print("Erro ao criar Rota Mercado Livre!")    
+    print("Erro ao criar Rota Shoppee!")    
     

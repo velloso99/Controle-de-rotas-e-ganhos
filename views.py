@@ -8,7 +8,7 @@ try:
     print("Conexão com Banco de Dados efetuado com sucesso!")
 except sqlite3.Error as e:
     print("Erro ao conectar com Banco de Dados!")
-    
+ 
 # Tabela Mercado Livre
 def criar_dados_ml(i):
     with con:
@@ -24,14 +24,14 @@ def ver_dados():
             cur.execute('SELECT * FROM Rota_Mercado_Livre')
             return cur.fetchall()
     except Exception as e:
-        print(f"Erro ao buscar contatos: {e}")
+        print(f"Erro ao buscar dados: {e}")
         return []
 
 #-----------------------------------------------------------------------------------------------------------------
 def atualizar_dados(i):
     with con:
         cur = con.cursor()
-        query = "UPDATE Rota_Mercado_Livre SET data=?,dia_semana=?,valor_rota=?,valor_bomba=?,km=?,lucro=?,entregas=?,devolvidas=?, total=? WHERE id=?"
+        query = "UPDATE Rota_Mercado_Livre SET data=?,dia_semana=?,valor_rota=?,valor_bomba=?,km=?,lucro=?,entregas=?,devolvidas=?,total=? WHERE id=?"
         cur.execute(query, i)
 #-----------------------------------------------------------------------------------------------------------------
     with con:
@@ -54,7 +54,7 @@ def ver_dados():
             cur.execute('SELECT * FROM Rota_Shoppee')
             return cur.fetchall()
     except Exception as e:
-        print(f"Erro ao buscar contatos: {e}")
+        print(f"Erro ao buscar dados: {e}")
         return []
 
 #-----------------------------------------------------------------------------------------------------------------

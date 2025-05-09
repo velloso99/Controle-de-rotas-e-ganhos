@@ -82,6 +82,7 @@ def calcular_media_combustivel():
 
 def cadastrar_dados():
     data = entry_data.get()
+    dia_semana = e_d_semana.get()
     valor_rota = e_valor_rota.get()
     km = e_km.get()
     valor_bomba = e_v_comb.get()
@@ -90,7 +91,7 @@ def cadastrar_dados():
     devolvidas = e_dev.get()
     total = e_Total_entregas.get()
 
-    lista = [data, valor_rota, km, valor_bomba, lucro, entregas, devolvidas, total]
+    lista = [data,dia_semana, valor_rota, km, valor_bomba, lucro, entregas, devolvidas, total]
 
     # Verifica se algum campo está vazio
     for i in lista:
@@ -105,6 +106,7 @@ def cadastrar_dados():
 
     # Limpa os campos após o cadastro
     entry_data.delete(0, END)
+    e_d_semana.delete(0, END)
     e_valor_rota.delete(0, END)
     e_km.delete(0, END)
     e_v_comb.delete(0, END)           # <<< adicionado

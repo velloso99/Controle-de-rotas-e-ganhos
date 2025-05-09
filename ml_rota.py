@@ -44,10 +44,24 @@ def abrir_painel():
     painel = "main.py"  # nome do script a ser aberto
     subprocess.Popen([sys.executable, painel])
     ml_rota.destroy()  # fecha a janela atual
+    
+################---------CONFIGURAÇÃO DE DADOS------##################################################################################    
+def cadastrar_dados():
+    
+    data = entry_data.get()
+    valor_rota = e_valor.get()
+    km = e_km.get()
+    comb = e_comb_gasto.get()
+    lucro = e_lucro.get()
+    entregas = e_entregas.get()
+    devolvidas = e_dev.get()
+    total = e_total.get()
+        
+    
 
 #################---------BOTÕES------##################################################################################
-bt_adcionar = Button(frame_botao, command=None, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_adcionar.grid(row=0, column=1)
+bt_adicionar = Button(frame_botao, command=cadastrar_dados, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_adicionar.grid(row=0, column=1)
 
 bt_excluir = Button(frame_botao, command=None, text="Excluir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_excluir.grid(row=0, column=2)

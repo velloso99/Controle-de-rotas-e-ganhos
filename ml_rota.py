@@ -58,11 +58,14 @@ bt_imprimir.grid(row=0, column=3)
 bt_calc = Button(frame_botao, command=None, text="Calcular", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_calc.grid(row=0, column=4)
 
+bt_rela = Button(frame_botao, command=abrir_painel, text="Relatório", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_rela.grid(row=0, column=5)
+
 bt_atualizar = Button(frame_botao, command=None, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_atualizar.grid(row=0, column=5)
+bt_atualizar.grid(row=0, column=6)
 
 bt_voltar = Button(frame_botao, command=abrir_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_voltar.grid(row=0, column=6)
+bt_voltar.grid(row=0, column=7)
 #################---------CONFIGURAÇÕES------##################################################################################
 def calendario():
     def pegar_data():
@@ -89,6 +92,9 @@ def calendario():
     Button(calendario_root, text="Selecionar", command=pegar_data).pack(pady=10) # Botão para selecionar a data
 
 
+    
+
+   
 
 #################--------LABEL------##################################################################################
 bt_calendario = Button(frame_baixo, text="Data", command=calendario)
@@ -101,30 +107,35 @@ l_valor.place(x=10, y=40)
 e_valor= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
 e_valor.place(x=90, y=40)
 
+l_km = Label(frame_baixo, text="KM:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_km.place(x=10, y=70)
+e_km= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_km.place(x=90, y=70)
+
 l_comb_gasto = Label(frame_baixo, text="Comb. Gasto R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_comb_gasto.place(x=10, y=70)
+l_comb_gasto.place(x=10, y=100)
 e_comb_gasto = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_comb_gasto.place(x=130, y=70)
+e_comb_gasto.place(x=130, y=100)
 
 l_lucro = Label(frame_baixo, text="Lucro R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_lucro.place(x=10, y=100)
+l_lucro.place(x=10, y=130)
 e_lucro = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_lucro.place(x=130, y=100)
+e_lucro.place(x=130, y=130)
 
 l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_entregas.place(x=170, y=40)
 e_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
 e_entregas.place(x=240, y=40)
 
-l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_entregas.place(x=170, y=70)
-e_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
-e_entregas.place(x=240, y=70)
+l_dev = Label(frame_baixo, text="Devolvidas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_dev.place(x=170, y=70)
+e_dev = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_dev.place(x=240, y=70)
 
-l_lucro = Label(frame_baixo, text="Lucro %:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_lucro.place(x=170, y=100)
-e_lucro = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_lucro.place(x=240, y=100)
+l_total = Label(frame_baixo, text="Total %:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_total.place(x=170, y=100)
+e_total = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_total.place(x=240, y=100)
 
 
 #Tabela Alunos

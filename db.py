@@ -18,12 +18,12 @@ try:
             CREATE TABLE IF NOT EXISTS Rota_Mercado_Livre(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 data TEXT,
-                hora TEXT,
-                rota TEXT,
+                valor_rota TEXT,
                 km TEXT,
-                valor TEXT,
+                valor_total TEXT,
                 lucro TEXT,
-                observacao TEXT
+                entregues TEXT,
+                devolvidas TEXT,
             )""")
         print("Tabela Rota Mercado Livre criado com sucesso!")
 except sqlite3.Error as e:

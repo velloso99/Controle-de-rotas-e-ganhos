@@ -136,7 +136,7 @@ def mostrar_ml():
         #CREATING A TREEVIEW WITH DUAL SCROLLBARS
         list_header = ['Data', 'Valor R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
       
-        df_list = []
+        df_list = ver_dados()
         
         global tree_ml
         

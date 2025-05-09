@@ -15,7 +15,7 @@ try:
     with con:
         cur= con.cursor()
         cur.execute("""
-            CREATE TABLE IF NOT EXISTS rota_ml(
+            CREATE TABLE IF NOT EXISTS Rota_Mercado_Livre(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 data TEXT,
                 hora TEXT,

@@ -9,4 +9,41 @@ try:
 except sqlite3.Error as e:
     print("Erro ao conectar com Banco de Dados!")
     
-    
+# Tabela Mercado Livre
+def criar_dados(i):
+    with con:
+        cur = con.cursor()
+        query = "INSERT INTO Rota_Mercado_Livre(data,hora,rota,km,valor,lucro,observacao) values(?,?,?,?,?,?,?)"
+        cur.execute(query, i) 
+#-----------------------------------------------------------------------------------------------------------------
+def ver_dados():
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute('SELECT * FROM Rota_Mercado_Livre')
+            return cur.fetchall()
+    except Exception as e:
+        print(f"Erro ao buscar contatos: {e}")
+        return []
+
+#-----------------------------------------------------------------------------------------------------------------
+def atualizar_dados(i):
+    with con:
+        cur = con.cursor()
+        query = "UPDATE Rota_Mercado_Livre SET data=?,hora=?,rota=?,km=?,valor=?,lucro=?,observacao=? WHERE id=?"
+        cur.execute(query, i)
+#-----------------------------------------------------------------------------------------------------------------  
+def excluir_dados(i):
+    with con:
+        cur = con.cursor()
+        query = "DELETE FROM Rota_Mercado_Livre WHERE id=?"
+        cur.execute(query, (i,))
+
+
+
+
+
+
+
+
+ 

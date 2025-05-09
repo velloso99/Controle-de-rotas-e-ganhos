@@ -228,6 +228,7 @@ e_Total_entregas.place(x=260, y=100)
 #Tabela Alunos
 #Tabela Alunos
 def mostrar_dados():
+    
     app_nome = Label(frame_tabela, text="Tabela de Rotas Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co6)
     app_nome.grid(row=0 , column=0, padx=0, pady=10, sticky=NSEW)
         

@@ -3,14 +3,13 @@ from views import*
 import sqlite3
 
 
-
 ml_rota = Tk()
 ml_rota.title("Controle de Rotas e Ganhos")
-ml_rota.geometry("900x400")
+ml_rota.geometry("900x900")
 ml_rota.configure(background=co0)
 ml_rota.resizable(width=False, height=False)
 largura_root= 900
-altura_root= 400
+altura_root= 900
 #obter tamanho da tela
 largura_tela = ml_rota.winfo_screenwidth()
 altura_tela = ml_rota.winfo_screenheight()
@@ -31,12 +30,12 @@ frame_botao.grid(row=2, column=0, padx=0, pady=0, sticky=NSEW)
 
 ttk.Separator(ml_rota, orient=HORIZONTAL).grid(row=3, columnspan=1, ipadx=680)
 
-frame_baixo = Frame(ml_rota, width=900, height=350, bg=co1, relief='flat')
+frame_baixo = Frame(ml_rota, width=900, height=200, bg=co1, relief='flat')
 frame_baixo.grid(row=4, column=0, padx=0, pady=0, sticky=NSEW)
 
 ttk.Separator(ml_rota, orient=HORIZONTAL).grid(row=5, columnspan=1, ipadx=680)
 
-frame_tabela = Frame(ml_rota, width=900, height=350, bg=co1, relief='flat')
+frame_tabela = Frame(ml_rota, width=900, height=500, bg=co1, relief='flat')
 frame_tabela.grid(row=6, column=0, padx=0, pady=0, sticky=NSEW)
 #################---------TITULO------##################################################################################
 l_titulo=Label(frame_cima, text="Rota do Mercado Livre",anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
@@ -76,9 +75,6 @@ def calcular_media_combustivel():
 
     except ValueError:
         messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
-
-
-
 
 def cadastrar_dados():
     data = entry_data.get()
@@ -228,45 +224,58 @@ e_Total_entregas.place(x=260, y=100)
 
 
 #Tabela Alunos
-def mostrar_ml():
+def mostrar_lucro():
     
     app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0, relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
     app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")  # Agora correto
         
     #CREATING A TREEVIEW WITH DUAL SCROLLBARS
-    list_header = ['Data', 'Valor R$', 'Valor bomba R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
+    list_header = ['data', 'dia_semana', 'valor_rota', 'km', 'valor_bomba', 'lucro', 'entregas', 'devolvidas', 'total']
+    # Define the atualizar_lucro function
+    def atualizar_dados(lista):
+        # Placeholder implementation for updating data
+        # Replace this with actual database update logic
+        print(f"Updating record with data: {lista}")
 
-    df_list = ver_dados()
+    # Placeholder function for ver_dados
+    def ver_dados():
+        # Return a sample list of data for demonstration
+        return [
+            [1, "01/01/2023", 100.0, 50.0, 20.0, 5.0, 25.0, 75.0],
+            [2, "02/01/2023", 200.0, 100.0, 40.0, 10.0, 50.0, 150.0]
+        ]
+
+        df_list = ver_dados()
         
-    global tree_ml
+        global tree_lucro
         
-    tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
+        tree_lucro = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
         
-    #VERTICAL SCROLLBAR
-    vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
-    #HORIZONTAL SCROLLBAR
-    hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.yview)
+        #VERTICAL SCROLLBAR
+        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_lucro.yview)
+        #HORIZONTAL SCROLLBAR
+        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_lucro.yview)
         
-    tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-    tree_ml.grid(column=0, row=1, sticky='nsew')
-    vsb.grid(column=1, row=1, sticky='ns')
-    hsb.grid(column=0, row=2, sticky='ew')
-    frame_tabela.grid_rowconfigure(0,weight=12)
+        tree_lucro.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        tree_lucro.grid(column=0, row=1, sticky='nsew')
+        vsb.grid(column=1, row=1, sticky='ns')
+        hsb.grid(column=0, row=2, sticky='ew')
+        frame_tabela.grid_rowconfigure(0,weight=12)
         
-    hd=["center","center","center","center","center","center","center","center","center"]  
-    h = [50, 50, 50, 50, 50, 50, 50, 50,50]
-    n=0
+        hd=["center","center","center","center","center","center","center","center","center"]  
+        h = [40, 100, 100, 130, 50, 160, 160, 100, 100]
+        n=0
         
-    for col in list_header:
-        tree_ml.heading(col, text=col.title(), anchor=NW)
-        #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
-        tree_ml.column(col, width=h[n], anchor=hd[n])
+        for col in list_header:
+            tree_lucro.heading(col, text=col.title(), anchor=NW)
+            #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
+            tree_lucro.column(col, width=h[n], anchor=hd[n])
             
-        n+=1
+            n+=1
             
-        for item in df_list:
-            tree_ml.insert("", "end", values=item)
-mostrar_ml()
+            for item in df_list:
+                tree_lucro.insert("", "end", values=item)
+mostrar_lucro()
 
 
 

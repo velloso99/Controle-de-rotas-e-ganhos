@@ -20,6 +20,7 @@ try:
                 data TEXT,
                 valor_rota TEXT,
                 km TEXT,
+                valor_bomba TEXT,
                 valor_total TEXT,
                 lucro TEXT,
                 entregues TEXT,

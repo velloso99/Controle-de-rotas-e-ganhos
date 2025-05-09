@@ -46,8 +46,14 @@ def abrir_painel():
     painel = "main.py"  # nome do script a ser aberto
     subprocess.Popen([sys.executable, painel])
     ml_rota.destroy()  # fecha a janela atual
-    
-################---------CONFIGURAÇÃO DE DADOS------##################################################################################    
+
+################---------CONFIGURAÇÃO DE DADOS------##################################################################################
+
+
+
+
+
+
 def cadastrar_dados():
     
     data = entry_data.get()
@@ -172,6 +178,11 @@ l_total.place(x=190, y=100)
 e_total = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
 e_total.place(x=260, y=100)
 
+l_v_comb = Label(frame_baixo, text="Valor da Bomba R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_v_comb.place(x=190, y=10)
+e_v_comb = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_v_comb.place(x=325, y=10)
+
 
 #Tabela Alunos
 def mostrar_ml():
@@ -180,8 +191,8 @@ def mostrar_ml():
         app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")  # Agora correto
         
         #CREATING A TREEVIEW WITH DUAL SCROLLBARS
-        list_header = ['Data', 'Valor R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
-      
+        list_header = ['Data', 'Valor R$', 'Valor bomba R$', 'Comb. Gasto R$', 'Lucro R$', 'Entregas', 'Lucro %', 'Custo Comb.', 'Custo Total']
+
         df_list = ver_dados()
         
         global tree_ml
@@ -199,8 +210,8 @@ def mostrar_ml():
         hsb.grid(column=0, row=2, sticky='ew')
         frame_tabela.grid_rowconfigure(0,weight=12)
         
-        hd=["center","center","center","center","center","center","center","center"]  
-        h = [50, 50, 50, 50, 50, 50, 50, 50]
+        hd=["center","center","center","center","center","center","center","center","center"]  
+        h = [50, 50, 50, 50, 50, 50, 50, 50,50]
         n=0
         
         for col in list_header:

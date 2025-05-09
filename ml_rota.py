@@ -1,5 +1,7 @@
 from pacotes import*
 from views import*
+import sqlite3
+
 
 
 
@@ -226,7 +228,7 @@ e_Total_entregas.place(x=260, y=100)
 #Tabela Alunos
 #Tabela Alunos
 def mostrar_dados():
-    app_nome = Label(frame_tabela, text="Tabela de Estudantes", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co6)
+    app_nome = Label(frame_tabela, text="Tabela de Rotas Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co6)
     app_nome.grid(row=0 , column=0, padx=0, pady=10, sticky=NSEW)
         
     #CREATING A TREEVIEW WITH DUAL SCROLLBARS
@@ -249,7 +251,7 @@ def mostrar_dados():
     frame_tabela.grid_rowconfigure(0,weight=12)
 
     hd=['center','center','center','center','center','center','center','center','center']
-    h = [40,150,150,70,70,70,80,100,150]
+    h = [100,150,150,70,70,70,80,100,150]
     n=0
         
     for col in list_header:

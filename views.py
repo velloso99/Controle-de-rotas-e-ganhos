@@ -21,10 +21,10 @@ def ver_dados():
     try:
         with con:
             cur = con.cursor()
-            cur.execute('SELECT * FROM rota_mercado_livre')
+            cur.execute('SELECT * FROM Rota_Mercado_Livre')
             return cur.fetchall()
     except Exception as e:
-        #print(f"Erro ao buscar dados: {e}")
+        print(f"Erro ao buscar dados: {e}")
         return []
 
 #-----------------------------------------------------------------------------------------------------------------

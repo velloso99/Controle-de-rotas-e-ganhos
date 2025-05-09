@@ -8,3 +8,26 @@ try:
     print("Conexão com Banco de Dados efetuado com sucesso!")
 except sqlite3.Error as e:
     print("Erro ao conectar com Banco de Dados!")
+    
+# Crinado  Tabela do Banco de dados
+#Tabela Rota Mercado lIvre
+try:
+    with con:
+        cur= con.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS rota_ml(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                data TEXT,
+                hora TEXT,
+                rota TEXT,
+                km TEXT,
+                valor TEXT,
+                lucro TEXT,
+                observacao TEXT
+            )""")
+        print("Tabela Rota Mercado Livre criado com sucesso!")
+except sqlite3.Error as e:
+    print("Erro ao criar Rota Mercado Livre!")
+    
+    
+    

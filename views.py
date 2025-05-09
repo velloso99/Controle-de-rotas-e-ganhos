@@ -8,3 +8,5 @@ try:
     print("Conexão com Banco de Dados efetuado com sucesso!")
 except sqlite3.Error as e:
     print("Erro ao conectar com Banco de Dados!")
+    
+    

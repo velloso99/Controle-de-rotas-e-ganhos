@@ -253,12 +253,14 @@ def mostrar_dados():
     n=0
         
     for col in list_header:
-        tree_ml.heading(col, text=col.title(), anchor=NW)
-        #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
-        tree_ml.column(col, width=h[n], anchor=hd[n])
-        n+=1
-        for item in df_list:
-            tree_ml.insert("", "end", values=item)
+            tree_ml.heading(col, text=col.title(), anchor=NW)
+            #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
+            tree_ml.column(col, width=h[n], anchor=hd[n])
+            
+            n+=1
+            
+            for item in df_list:
+                tree_ml.insert("", "end", values=item)
 mostrar_dados()
 
 

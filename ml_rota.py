@@ -50,7 +50,17 @@ def abrir_painel():
 ################---------CONFIGURAÇÃO DE DADOS------##################################################################################
 
 
-
+def calcular_media_comb():
+    try:
+        km = float(e_km.get())
+        valor_comb = float(e_v_comb.get())
+        media = (km / 10) * valor_comb
+        e_comb_gasto.delete(0, END)         # limpa o campo anterior
+        e_comb_gasto.insert(0, f"{media:.2f}") # insere o valor calculado com 2 casas decimais
+    except ValueError:
+        e_comb_gasto.delete(0, END)
+        e_comb_gasto.insert(0, "Erro")
+        media = (km / 10) * valor_comb
 
 
 

@@ -149,12 +149,12 @@ e_km.place(x=90, y=70)
 
 l_comb_gasto = Label(frame_baixo, text="Comb. Gasto R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_comb_gasto.place(x=10, y=100)
-e_comb_gasto = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_comb_gasto = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
 e_comb_gasto.place(x=130, y=100)
 
 l_lucro = Label(frame_baixo, text="Lucro R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_lucro.place(x=10, y=130)
-e_lucro = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_lucro = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
 e_lucro.place(x=130, y=130)
 
 l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
@@ -165,12 +165,12 @@ e_entregas.place(x=240, y=40)
 l_dev = Label(frame_baixo, text="Devolvidas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_dev.place(x=170, y=70)
 e_dev = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
-e_dev.place(x=240, y=70)
+e_dev.place(x=250, y=70)
 
 l_total = Label(frame_baixo, text="Total %:", font=('Ivy 10 bold'), bg=co1, fg=co6)
-l_total.place(x=170, y=100)
-e_total = Label(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
-e_total.place(x=240, y=100)
+l_total.place(x=190, y=100)
+e_total = Entry(frame_baixo, text="0", font=('Ivy 10 bold'), bg=co1, fg=co6)
+e_total.place(x=260, y=100)
 
 
 #Tabela Alunos

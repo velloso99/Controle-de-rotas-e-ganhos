@@ -26,7 +26,17 @@ def ver_dados_ml():
     except Exception as e:
         print(f"Erro ao buscar dados: {e}")
         return []
-
+#-----------------------------------------------------------------------------------------------------------------
+def calcular_total_lucro_ml():
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute('SELECT SUM(lucro) FROM Rota_Mercado_Livre')
+            resultado = cur.fetchone()[0]
+            return resultado if resultado is not None else 0
+    except Exception as e:
+        print(f"Erro ao calcular total de lucro: {e}")
+        return 0
 #-----------------------------------------------------------------------------------------------------------------
 def atualizar_dados_ml(i):
     with con:

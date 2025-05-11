@@ -1,5 +1,6 @@
 from pacotes import*
 from views import*
+import tkinter as tk
 
 
 
@@ -50,7 +51,7 @@ def abrir_painel():
     ml_rota.destroy()  # fecha a janela atual
 
 ################---------CONFIGURAÇÃO DE DADOS------##################################################################################
-
+v_mes_var = tk.StringVar()
 
 def calcular_media_combustivel():
     try:
@@ -112,6 +113,21 @@ def cadastrar_dados():
     e_entregas.delete(0, END)
     e_dev.delete(0, END)
     e_Total_entregas.delete(0, END)
+
+def calcular_total_valor_rota():
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute('SELECT SUM(valor_rota) FROM Rota_Mercado_Livre')
+            resultado = cur.fetchone()[0]
+            return resultado if resultado is not None else 0
+    except Exception as e:
+        print(f"Erro ao calcular total de valor_rota: {e}")
+        return 0
+
+def atualizar_entry_valor_rota():
+    total = calcular_total_valor_rota()
+    v_mes_var.set(f"R$ {total:.2f}")
 
 
 #################---------BOTÕES------##################################################################################
@@ -177,6 +193,7 @@ def calendario():
 
     Button(calendario_root, text="Selecionar", command=pegar_data).pack(pady=10)
 
+
 #################--------LABEL------##################################################################################
 bt_calendario = Button(frame_baixo, text="Data", command=calendario)
 bt_calendario.place(x=10, y=10)
@@ -195,7 +212,7 @@ e_v_comb.place(x=520, y=10)
 
 l_v_mês = Label(frame_baixo, text="Valor Mensal R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_v_mês.place(x=390, y=40)
-e_v_mês = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
+e_v_mês = Entry(frame_baixo,textvariable=v_mes_var, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
 e_v_mês.place(x=510, y=40)
 
 l_valor_rota = Label(frame_baixo, text="Valor Rota:", font=('Ivy 10 bold'), bg=co1, fg=co6)
@@ -230,6 +247,14 @@ e_Total_entregas.place(x=260, y=100)
 
 #Tabela Alunos
 def mostrar_ml():
+    
+     # ... (seu código de Treeview aqui)
+
+    # Atualizar os valores totais nos Entry
+    atualizar_entry_valor_rota() 
+    # atualizar_e_v_mes()  # Removed as it is not defined
+
+
     app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0,
                      relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
     app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
@@ -261,7 +286,7 @@ def mostrar_ml():
     frame_tabela.grid_rowconfigure(0, weight=12)
     
     hd = ["center"] * len(list_header)
-    h = [40, 100, 100, 130, 50, 100, 100, 100, 100, 100]
+    h = [40, 100, 100, 130, 50, 160, 160, 100, 100, 100]
 
     for n, col in enumerate(list_header):
         tree_lucro.heading(col, text=col.title(), anchor="center")

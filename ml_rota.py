@@ -205,7 +205,7 @@ e_km.place(x=90, y=70)
 
 l_lucro = Label(frame_baixo, text="Lucro R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_lucro.place(x=10, y=100)
-e_lucro = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_lucro = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
 e_lucro.place(x=90, y=100)
 
 l_entregas = Label(frame_baixo, text="Entregas:", font=('Ivy 10 bold'), bg=co1, fg=co6)
@@ -220,58 +220,50 @@ e_dev.place(x=250, y=70)
 
 l_Total_entregas = Label(frame_baixo, text="Total:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_Total_entregas.place(x=190, y=100)
-e_Total_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
+e_Total_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
 e_Total_entregas.place(x=260, y=100)
 
-
-
-#Tabela Alunos
 #Tabela Alunos
 def mostrar_ml():
-        
-        app_nome = Label(frame_tabela, text="Tabela Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co6)
-        app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
-
-        # Definição do cabeçalho
-        list_header = ['id', 'data', 'dia_semana', 'valor_rota', 'valor_bomba', 'km', 'lucro', 'entregas', 'devolvidas', 'total']  # → 10 colunas
-
+    app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0,
+                     relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
+    app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
     
-        # Obtém os dados do estoque
-        df_list = ver_dados()  # Certifique-se de que essa função retorna os dados corretamente
+    list_header = ['id', 'Data', 'Dia da Semanna', 'Valor de Rota', 'Km ', 'valor Bomba', 'lucro', 'Entregas', 'devolvidas', 'Total']
     
-        global tree_ml
+    def ver_dados_ml():
+        try:
+            with con:
+                cur = con.cursor()
+                cur.execute('SELECT * FROM Rota_Mercado_Livre')
+                return cur.fetchall()
+        except Exception as e:
+            print(f"Erro ao buscar dados: {e}")
+            return []
+
+    df_list = ver_dados_ml()
+
+    global tree_lucro
+    tree_lucro = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
     
-        # Criando a Treeview
-        tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
+    vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_lucro.yview)
+    hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_lucro.xview)
 
-        # Barras de rolagem
-        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
-        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.xview)  # Corrigido aqui
-
-        tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-
-        # Posicionando os widgets
-        tree_ml.grid(column=0, row=1, sticky='nsew')
-        vsb.grid(column=1, row=1, sticky='ns')
-        hsb.grid(column=0, row=2, sticky='ew')
+    tree_lucro.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+    tree_lucro.grid(column=0, row=1, sticky='nsew')
+    vsb.grid(column=1, row=1, sticky='ns')
+    hsb.grid(column=0, row=2, sticky='ew')
+    frame_tabela.grid_rowconfigure(0, weight=12)
     
-        frame_tabela.grid_rowconfigure(0, weight=12)
+    hd = ["center"] * len(list_header)
+    h = [40, 100, 100, 130, 50, 100, 100, 100, 100, 100]
 
-        # Configuração das colunas
-        hd = ['center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center']
-        h = [40, 100, 100, 100, 100, 100, 150, 100, 100, 150]
+    for n, col in enumerate(list_header):
+        tree_lucro.heading(col, text=col.title(), anchor="center")
+        tree_lucro.column(col, width=h[n], anchor=hd[n])
 
-        for n, col in enumerate(list_header):
-            tree_ml.heading(col, text=col.title(), anchor=hd[n])
-            tree_ml.column(col, width=h[n], anchor=hd[n])
-
-        # Inserindo os dados
-        for item in df_list:
-            try:
-                tree_ml.insert("", "end", values=item)
-            except Exception as e:
-                print("Erro ao inserir:", item, "| Erro:", e)
-
+    for item in df_list:
+        tree_lucro.insert("", "end", values=item)
 mostrar_ml()
 
 

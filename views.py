@@ -17,24 +17,24 @@ def criar_dados_ml(i):
         cur.execute(query, i)
         con.commit()  # Commit para salvar as alterações no banco de dados
 #-----------------------------------------------------------------------------------------------------------------
-def ver_dados():
+def ver_dados_ml():
     try:
-        with con:
+        with con:  # Certifique-se de que `con` (conexão) está definida globalmente
             cur = con.cursor()
             cur.execute('SELECT * FROM Rota_Mercado_Livre')
             return cur.fetchall()
     except Exception as e:
-        print(f"Erro ao buscar dados:{e}")
+        print(f"Erro ao buscar dados: {e}")
         return []
 
 #-----------------------------------------------------------------------------------------------------------------
-def atualizar_dados(i):
+def atualizar_dados_ml(i):
     with con:
         cur = con.cursor()
         query = "UPDATE Rota_Mercado_Livre SET data=?,dia_semana=?,valor_rota=?,valor_bomba=?,km=?,lucro=?,entregas=?,devolvidas=?,total=? WHERE id=?"
         cur.execute(query, i)
 #-----------------------------------------------------------------------------------------------------------------
-def excluir_dados(i):   
+def excluir_dados_ml(i):
     with con:
         cur = con.cursor()
         query = "DELETE FROM Rota_Mercado_Livre WHERE id=?"
@@ -48,7 +48,7 @@ def criar_dados_s(i):
         cur.execute(query, i)
         con.commit()  # Commit para salvar as alterações no banco de dados
 #-----------------------------------------------------------------------------------------------------------------
-def ver_dados():
+def ver_dados_s():
     try:
         with con:
             cur = con.cursor()

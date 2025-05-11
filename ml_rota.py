@@ -229,7 +229,7 @@ e_Total_entregas.place(x=260, y=100)
 #Tabela Alunos
 def mostrar_ml():
         
-        app_nome = Label(frame_tabela, text="Tabela Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+        app_nome = Label(frame_tabela, text="Tabela Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co6)
         app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
 
         # Definição do cabeçalho
@@ -265,9 +265,12 @@ def mostrar_ml():
             tree_ml.column(col, width=h[n], anchor=hd[n])
 
         # Inserindo os dados
-        if df_list:
-            for item in df_list:
+        for item in df_list:
+            try:
                 tree_ml.insert("", "end", values=item)
+            except Exception as e:
+                print("Erro ao inserir:", item, "| Erro:", e)
+
 mostrar_ml()
 
 

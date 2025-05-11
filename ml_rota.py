@@ -193,6 +193,11 @@ l_v_comb.place(x=390, y=10)
 e_v_comb = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')
 e_v_comb.place(x=520, y=10)
 
+l_v_mês = Label(frame_baixo, text="Valor Mensal R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+l_v_mês.place(x=390, y=40)
+e_v_mês = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
+e_v_mês.place(x=510, y=40)
+
 l_valor_rota = Label(frame_baixo, text="Valor Rota:", font=('Ivy 10 bold'), bg=co1, fg=co6)
 l_valor_rota.place(x=10, y=40)
 e_valor_rota= Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid')

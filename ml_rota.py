@@ -227,45 +227,48 @@ e_Total_entregas.place(x=260, y=100)
 
 #Tabela Alunos
 #Tabela Alunos
-def mostrar_dados():
+def mostrar_ml():
+        
+        app_nome = Label(frame_tabela, text="Tabela Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+        app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
+
+        # Definição do cabeçalho
+        list_header = ['id', 'data', 'dia_semana', 'valor_rota', 'valor_bomba', 'km', 'lucro', 'entregas', 'devolvidas', 'total']
     
-    app_nome = Label(frame_tabela, text="Tabela de Rotas Mercado Livre", height=1, pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co6)
-    app_nome.grid(row=0 , column=0, padx=0, pady=10, sticky=NSEW)
-        
-    #CREATING A TREEVIEW WITH DUAL SCROLLBARS
-    list_header = ['data', 'dia_semana', 'valor_rota', 'km', 'valor_bomba', 'lucro', 'entregas', 'devolvidas', 'total']
-    df_list = ver_dados()
+        # Obtém os dados do estoque
+        df_list = ver_dados()  # Certifique-se de que essa função retorna os dados corretamente
+    
+        global tree_ml
+    
+        # Criando a Treeview
+        tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
 
-    global tree_ml
-        
-    tree_ml = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
-        
-    #VERTICAL SCROLLBAR
-    vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
-    #HORIZONTAL SCROLLBAR
-    hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.xview)
+        # Barras de rolagem
+        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_ml.yview)
+        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_ml.xview)  # Corrigido aqui
 
-    tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-    tree_ml.grid(column=0, row=1, sticky='nsew')
-    vsb.grid(column=1, row=1, sticky='ns')
-    hsb.grid(column=0, row=2, sticky='ew')
-    frame_tabela.grid_rowconfigure(0,weight=12)
+        tree_ml.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
-    hd=['center','center','center','center','center','center','center','center','center']
-    h = [100,150,150,70,70,70,80,100,150]
-    n=0
-        
-    for col in list_header:
-            tree_ml.heading(col, text=col.title(), anchor=NW)
-            #ADJUST THE COLUMN'S WIDTH TO THE HEADER STRING
+        # Posicionando os widgets
+        tree_ml.grid(column=0, row=1, sticky='nsew')
+        vsb.grid(column=1, row=1, sticky='ns')
+        hsb.grid(column=0, row=2, sticky='ew')
+    
+        frame_tabela.grid_rowconfigure(0, weight=12)
+
+        # Configuração das colunas
+        hd = ['center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center']
+        h = [40, 100, 100, 100,100, 100, 150, 100,100,150, 150, 70, 70, 150, 150, 100]
+
+        for n, col in enumerate(list_header):
+            tree_ml.heading(col, text=col.title(), anchor=hd[n])
             tree_ml.column(col, width=h[n], anchor=hd[n])
-            
-            n+=1
-            
+
+        # Inserindo os dados
+        if df_list:
             for item in df_list:
                 tree_ml.insert("", "end", values=item)
-mostrar_dados()
-
+mostrar_ml()
 
 
 ml_rota.mainloop()

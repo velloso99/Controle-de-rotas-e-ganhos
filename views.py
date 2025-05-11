@@ -34,6 +34,7 @@ def atualizar_dados(i):
         query = "UPDATE Rota_Mercado_Livre SET data=?,dia_semana=?,valor_rota=?,valor_bomba=?,km=?,lucro=?,entregas=?,devolvidas=?,total=? WHERE id=?"
         cur.execute(query, i)
 #-----------------------------------------------------------------------------------------------------------------
+def excluir_dados(i):   
     with con:
         cur = con.cursor()
         query = "DELETE FROM Rota_Mercado_Livre WHERE id=?"

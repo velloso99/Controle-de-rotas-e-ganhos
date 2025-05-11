@@ -24,7 +24,7 @@ def ver_dados():
             cur.execute('SELECT * FROM Rota_Mercado_Livre')
             return cur.fetchall()
     except Exception as e:
-        print(f"Erro ao buscar dados: {e}")
+        print(f"Erro ao buscar dados:{e}")
         return []
 
 #-----------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 from pacotes import*
 from views import*
-import sqlite3
+
 
 
 
@@ -37,7 +37,7 @@ frame_baixo.grid(row=4, column=0, padx=0, pady=0, sticky=NSEW)
 
 ttk.Separator(ml_rota, orient=HORIZONTAL).grid(row=5, columnspan=1, ipadx=680)
 
-frame_tabela = Frame(ml_rota, width=900, height=300, bg=co1, relief='flat')
+frame_tabela = Frame(ml_rota, width=900, height=300, bg=co6, relief='flat')
 frame_tabela.grid(row=6, column=0, padx=0, pady=0, sticky=NSEW)
 #################---------TITULO------##################################################################################
 l_titulo=Label(frame_cima, text="Rota do Mercado Livre",anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
@@ -233,7 +233,8 @@ def mostrar_ml():
         app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
 
         # Definição do cabeçalho
-        list_header = ['id', 'data', 'dia_semana', 'valor_rota', 'valor_bomba', 'km', 'lucro', 'entregas', 'devolvidas', 'total']
+        list_header = ['id', 'data', 'dia_semana', 'valor_rota', 'valor_bomba', 'km', 'lucro', 'entregas', 'devolvidas', 'total']  # → 10 colunas
+
     
         # Obtém os dados do estoque
         df_list = ver_dados()  # Certifique-se de que essa função retorna os dados corretamente
@@ -258,7 +259,7 @@ def mostrar_ml():
 
         # Configuração das colunas
         hd = ['center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center']
-        h = [40, 100, 100, 100,100, 100, 150, 100,100,150, 150, 70, 70, 150, 150, 100]
+        h = [40, 100, 100, 100, 100, 100, 150, 100, 100, 150]
 
         for n, col in enumerate(list_header):
             tree_ml.heading(col, text=col.title(), anchor=hd[n])

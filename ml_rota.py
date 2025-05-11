@@ -129,6 +129,77 @@ def atualizar_entry_valor_rota():
     total = calcular_total_valor_rota()
     v_mes_var.set(f"R$ {total:.2f}")
 
+def update_dados():
+    
+
+    try:
+        tree_itens = tree_lucro.focus()
+        tree_dicionario = tree_lucro.item(tree_itens)
+        tree_lista = tree_dicionario['values']
+
+        valor_id = tree_lista[0]
+
+        # Limpando campos
+        for campo in [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb, e_lucro, e_entregas, e_dev, e_Total_entregas]:
+            campo.delete(0, END)
+
+        # Preenchendo os campos com os valores selecionados
+        entry_data.insert(0, tree_lista[1])
+        e_d_semana.insert(0, tree_lista[2])
+        e_valor_rota.insert(0, tree_lista[3])
+        e_km.insert(0, tree_lista[4])
+        e_v_comb.insert(0, tree_lista[5])
+        e_lucro.insert(0, tree_lista[6])
+        e_entregas.insert(0, tree_lista[7])
+        e_dev.insert(0, tree_lista[8])
+        e_Total_entregas.insert(0, tree_lista[9])
+
+        
+
+        # Tentando carregar a imagem
+        def update():
+            # Pegando os dados atualizados
+            entry_data = entry_data.get()
+            e_d_semana = e_d_semana.get()
+            e_valor_rota = e_valor_rota.get()
+            e_km = e_km.get()
+            e_v_comb = e_v_comb.get()
+            e_lucro = e_lucro.get()
+            e_entregas = e_entregas.get()
+            e_dev = e_dev.get()
+            e_Total_entregas = e_Total_entregas.get()
+            
+            
+            lista = [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb, e_lucro, e_entregas, e_dev, e_Total_entregas, valor_id]
+
+            # Verificação de campos vazios
+            if not all(lista[:-1]):  # Exclui o ID da verificação
+                messagebox.showerror('Erro', 'Preencha todos os campos!')
+                return
+
+            try:
+                atualizar_dados(lista)
+                messagebox.showinfo('Sucesso', 'Os dados foram atualizados com sucesso!')
+
+                # Limpa os campos
+                for campo in [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb, e_lucro, e_entregas, e_dev, e_Total_entregas]:
+                    campo.delete(0, END)
+
+                mostrar_ml()
+
+                if 'botao_update' in globals() and bt_update.winfo_exists():
+                    bt_update.destroy()
+
+            except Exception as e:
+                messagebox.showerror('Erro', f'Erro ao atualizar: {e}')
+
+        # Botão de salvar alterações
+        bt_update = Button(frame_botao, command=cadastrar_dados, text="Salvar Atualizações", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+        bt_update.grid(row=0, column=8)
+    except IndexError:
+        messagebox.showerror('Erro', 'Selecione um dos alunos na tabela')
+
+
 
 #################---------BOTÕES------##################################################################################
 bt_adicionar = Button(frame_botao, command=cadastrar_dados, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
@@ -146,7 +217,7 @@ bt_calc.grid(row=0, column=4)
 bt_rela = Button(frame_botao, command=None, text="Relatório", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_rela.grid(row=0, column=5)
 
-bt_atualizar = Button(frame_botao, command=None, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_atualizar = Button(frame_botao, command=update_dados, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_atualizar.grid(row=0, column=6)
 
 bt_voltar = Button(frame_botao, command=abrir_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))

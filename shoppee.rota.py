@@ -6,11 +6,11 @@ import tkinter as tk
 
 sp_rota = Tk()
 sp_rota.title("Controle de Rotas e Ganhos")
-sp_rota.geometry("900x400")
+sp_rota.geometry("900x600")
 sp_rota.configure(background=co0)
 sp_rota.resizable(width=False, height=False)
 largura_root= 900
-altura_root= 400
+altura_root= 600
 #obter tamanho da tela
 largura_tela = sp_rota.winfo_screenwidth()
 altura_tela = sp_rota.winfo_screenheight()
@@ -31,12 +31,12 @@ frame_botao.grid(row=2, column=0, padx=0, pady=0, sticky=NSEW)
 
 ttk.Separator(sp_rota, orient=HORIZONTAL).grid(row=3, columnspan=1, ipadx=680)
 
-frame_baixo = Frame(sp_rota, width=900, height=350, bg=co1, relief='flat')
+frame_baixo = Frame(sp_rota, width=900, height=200, bg=co1, relief='flat')
 frame_baixo.grid(row=4, column=0, padx=0, pady=0, sticky=NSEW)
 
 ttk.Separator(sp_rota, orient=HORIZONTAL).grid(row=5, columnspan=1, ipadx=680)
 
-frame_tabela = Frame(sp_rota, width=900, height=350, bg=co1, relief='flat')
+frame_tabela = Frame(sp_rota, width=900, height=300, bg=co1, relief='flat')
 frame_tabela.grid(row=6, column=0, padx=0, pady=0, sticky=NSEW)
 #################---------TITULO------##################################################################################
 l_titulo=Label(frame_cima, text="Rota da Shoppee",anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
@@ -329,54 +329,55 @@ l_Total_entregas.place(x=190, y=100)
 e_Total_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
 e_Total_entregas.place(x=260, y=100)
 
-#Tabela Alunos
+
+#Tabela Shoppee
 def mostrar_s():
     
-     # ... (seu código de Treeview aqui)
-
     # Atualizar os valores totais nos Entry
     atualizar_entry_valor_rota() 
     # atualizar_e_v_mes()  # Removed as it is not defined
 
-
     app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0,relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
     app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
     
-    list_header = ['id', 'Data', 'Dia da Semanna', 'Valor de Rota', 'Km ', 'valor Bomba', 'lucro', 'Entregas', 'devolvidas', 'Total']
-    
-    def ver_dados_s():
-        try:
-            with con:
-                cur = con.cursor()
-                cur.execute('SELECT * FROM Rota_Shoppee')
-                return cur.fetchall()
-        except Exception as e:
-            print(f"Erro ao buscar dados: {e}")
-            return []
+    # Cabeçalhos da tabela
+    list_header = ['id', 'Data', 'Dia da Semana', 'Valor de Rota', 'Km', 'Valor Bomba', 'Lucro', 'Entregas', 'Devolvidas', 'Total']
 
+    # Buscar dados
     df_list = ver_dados_s()
 
+    # Criar Treeview
     global tree_lucro
     tree_lucro = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
-    
+
+    # Scrollbars
     vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_lucro.yview)
     hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_lucro.xview)
-
     tree_lucro.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    # Posicionar Treeview e Scrolls
     tree_lucro.grid(column=0, row=1, sticky='nsew')
     vsb.grid(column=1, row=1, sticky='ns')
     hsb.grid(column=0, row=2, sticky='ew')
-    frame_tabela.grid_rowconfigure(0, weight=12)
-    
-    hd = ["center"] * len(list_header)
-    h = [40, 100, 100, 100, 50, 100, 100, 100, 100, 100]
+
+    # Expandir corretamente o grid
+    frame_tabela.grid_rowconfigure(1, weight=1)
+    frame_tabela.grid_columnconfigure(0, weight=1)
+
+    # Configurar colunas
+    align = ["center"] * len(list_header)
+    largura = [40, 100, 120, 100, 60, 100, 100, 100, 100, 100]
 
     for n, col in enumerate(list_header):
         tree_lucro.heading(col, text=col.title(), anchor="center")
-        tree_lucro.column(col, width=h[n], anchor=hd[n])
+        tree_lucro.column(col, width=largura[n], anchor=align[n])
 
+    # Inserir dados
     for item in df_list:
-        tree_lucro.insert("", "end", values=item)
+        try:
+            tree_lucro.insert("", "end", values=item)
+        except Exception as e:
+            print(f"Erro ao inserir item na tabela: {e}")
 mostrar_s()
 
 

@@ -48,8 +48,10 @@ def excluir_dados_ml(i):
     with con:
         cur = con.cursor()
         query = "DELETE FROM Rota_Mercado_Livre WHERE id=?"
-        cur.execute(query, (i,))
+        cur.execute(query, (i))
+        
 ##############################################################################################################################################################
+
 # Tabela Shoppee
 def criar_dados_s(i):
     with con:
@@ -79,7 +81,7 @@ def excluir_dados_s(i):
     with con:
         cur = con.cursor()
         query = "DELETE FROM Rota_Shoppee WHERE id=?"
-        cur.execute(query, (i,))
+        cur.execute(query, (i))
 
 
 

@@ -330,7 +330,7 @@ l_Total_entregas.place(x=190, y=100)
 e_Total_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
 e_Total_entregas.place(x=260, y=100)
 
-#Tabela Alunos
+#Tabela Mercado Livre
 def mostrar_ml():
     
      # ... (seu código de Treeview aqui)
@@ -346,15 +346,6 @@ def mostrar_ml():
     
     list_header = ['id', 'Data', 'Dia da Semanna', 'Valor de Rota', 'Km ', 'valor Bomba', 'lucro', 'Entregas', 'devolvidas', 'Total']
     
-    def ver_dados_ml():
-        try:
-            with con:
-                cur = con.cursor()
-                cur.execute('SELECT * FROM Rota_Mercado_Livre')
-                return cur.fetchall()
-        except Exception as e:
-            print(f"Erro ao buscar dados: {e}")
-            return []
 
     df_list = ver_dados_ml()
 

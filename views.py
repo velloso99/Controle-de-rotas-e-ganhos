@@ -54,13 +54,13 @@ def excluir_dados_ml(i):
 def criar_dados_s(i):
     with con:
         cur = con.cursor()
-        query = "INSERT INTO Rota_Shoppee(data,valor_rota,valor_bomba,km,valor_total,lucro,entregas,devolvidas,dia_semana) values(?,?,?,?,?,?,?,?)"
+        query = "INSERT INTO Rota_Shoppee(data,dia_semana,valor_rota,valor_bomba,km,lucro,entregas,devolvidas,total) values(?,?,?,?,?,?,?,?,?)"
         cur.execute(query, i)
         con.commit()  # Commit para salvar as alterações no banco de dados
 #-----------------------------------------------------------------------------------------------------------------
 def ver_dados_s():
     try:
-        with con:
+        with con:  # Certifique-se de que `con` (conexão) está definida globalmente
             cur = con.cursor()
             cur.execute('SELECT * FROM Rota_Shoppee')
             return cur.fetchall()
@@ -69,13 +69,13 @@ def ver_dados_s():
         return []
 
 #-----------------------------------------------------------------------------------------------------------------
-def atualizar_dados(i):
+def atualizar_dados_s(i):
     with con:
         cur = con.cursor()
-        query = "UPDATE Rota_Shoppee SET data=?,valor_rota=?,valor_bomba=?,km=?,valor_total=?,lucro=?,entregas=?,devolvidas=? WHERE id=?"
+        query = "UPDATE Rota_Shoppee SET data=?,dia_semana=?,valor_rota=?,valor_bomba=?,km=?,lucro=?,entregas=?,devolvidas=?,total=? WHERE id=?"
         cur.execute(query, i)
 #-----------------------------------------------------------------------------------------------------------------  
-def excluir_dados(i):
+def excluir_dados_s(i):
     with con:
         cur = con.cursor()
         query = "DELETE FROM Rota_Shoppee WHERE id=?"

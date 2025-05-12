@@ -1,9 +1,6 @@
-from pacotes import*
+from pacotes import*  # Ensure atualizar_dados is imported if it exists in pacotes
 from views import*
 import tkinter as tk
-
-
-
 
 
 ml_rota = Tk()
@@ -178,7 +175,7 @@ def update_dados():
                 return
 
             try:
-                atualizar_dados(lista)
+                atualizar_dados_ml(lista)  # Ensure this function is defined or imported
                 messagebox.showinfo('Sucesso', 'Os dados foram atualizados com sucesso!')
 
                 # Limpa os campos
@@ -199,13 +196,30 @@ def update_dados():
     except IndexError:
         messagebox.showerror('Erro', 'Selecione um dos alunos na tabela')
 
+def excluir_dados():
+    try:
+        tree_itens = tree_lucro.focus()
+        tree_dicionario = tree_lucro.item(tree_itens)
+        tree_lista = tree_dicionario['values']
 
+        valor_id = tree_lista[0]
+
+        # Excluindo os dados
+        excluir_dados_ml(valor_id)
+
+        messagebox.showinfo('Sucesso', 'Os dados foram excluídos com sucesso!')
+
+        # Atualizando a tabela
+        mostrar_ml()
+
+    except IndexError:
+        messagebox.showerror('Erro', 'Selecione um dos alunos na tabela')
 
 #################---------BOTÕES------##################################################################################
 bt_adicionar = Button(frame_botao, command=cadastrar_dados, text="Adicionar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_adicionar.grid(row=0, column=1)
 
-bt_excluir = Button(frame_botao, command=None, text="Excluir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_excluir = Button(frame_botao, command=excluir_dados, text="Excluir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
 bt_excluir.grid(row=0, column=2)
 
 bt_imprimir = Button(frame_botao, command=None, text="Imprimir", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
@@ -357,7 +371,7 @@ def mostrar_ml():
     frame_tabela.grid_rowconfigure(0, weight=12)
     
     hd = ["center"] * len(list_header)
-    h = [40, 100, 100, 130, 50, 160, 160, 100, 100, 100]
+    h = [40, 100, 100, 100, 50, 100, 100, 100, 100, 100]
 
     for n, col in enumerate(list_header):
         tree_lucro.heading(col, text=col.title(), anchor="center")

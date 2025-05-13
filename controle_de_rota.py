@@ -107,10 +107,7 @@ def ml_rota():
 
 
     #################---------CONFIGURAÇÕES BOTÕES------##################################################################################
-    def abrir_painel():
-       painel = "controle_de_rota.py"  # nome do script a ser aberto
-       subprocess.Popen([sys.executable, painel])
-       ml_rota.destroy()  # fecha a janela atual # fecha a janela atual
+    
 
     ################---------CONFIGURAÇÃO DE DADOS------##################################################################################
     v_mes_var = tk.StringVar()
@@ -144,21 +141,26 @@ def ml_rota():
     def cadastrar_dados():
         data = entry_data.get()
         dia_semana = e_d_semana.get()
-        valor_rota = float(e_valor_rota.get())
-        km = float(e_km.get())
-        valor_bomba = float(e_v_comb.get())
-        lucro = float(e_lucro.get())
-        entregas = int(e_entregas.get())
-        devolvidas = int(e_dev.get())
-        total = float(e_Total_entregas.get())
 
-        lista = [data,dia_semana, valor_rota, km, valor_bomba, lucro, entregas, devolvidas, total]
-
-        # Verifica se algum campo está vazio
-        for i in lista:
-            if i == "":
-             messagebox.showerror("Erro", "Preencha todos os campos!")
+        # Verifica campos obrigatórios de texto antes de conversões
+        if not all([data, dia_semana, e_valor_rota.get(), e_km.get(), e_v_comb.get(), 
+                    e_lucro.get(), e_entregas.get(), e_dev.get(), e_Total_entregas.get()]):
+            messagebox.showerror("Erro", "Preencha todos os campos!")
             return
+
+        try:
+            valor_rota = float(e_valor_rota.get())
+            km = float(e_km.get())
+            valor_bomba = float(e_v_comb.get())
+            lucro = float(e_lucro.get())
+            entregas = int(e_entregas.get())
+            devolvidas = int(e_dev.get())
+            total = float(e_Total_entregas.get())
+        except ValueError:
+            messagebox.showerror("Erro", "Verifique se os valores numéricos estão corretos.")
+            return
+
+        lista = [data, dia_semana, valor_rota, km, valor_bomba, lucro, entregas, devolvidas, total]
 
         # Inserindo no banco de dados
         criar_dados_ml(lista)
@@ -166,15 +168,9 @@ def ml_rota():
         messagebox.showinfo("Sucesso", "Dados cadastrados com sucesso!")
 
         # Limpa os campos após o cadastro
-        entry_data.delete(0, END)
-        e_d_semana.delete(0, END)
-        e_valor_rota.delete(0, END)
-        e_km.delete(0, END)
-        e_v_comb.delete(0, END)           # <<< adicionado
-        e_lucro.delete(0, END)
-        e_entregas.delete(0, END)
-        e_dev.delete(0, END)
-        e_Total_entregas.delete(0, END)
+        for campo in [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb,
+                    e_lucro, e_entregas, e_dev, e_Total_entregas]:
+            campo.delete(0, END)
 
     def calcular_total_valor_rota():
         try:
@@ -192,7 +188,6 @@ def ml_rota():
         v_mes_var.set(f"R$ {total:.2f}")
 
     def update_dados():
-    
         try:
             tree_itens = tree_lucro.focus()
             tree_dicionario = tree_lucro.item(tree_itens)
@@ -200,7 +195,7 @@ def ml_rota():
 
             valor_id = tree_lista[0]
 
-            # Limpando campos
+         # Limpando campos
             for campo in [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb, e_lucro, e_entregas, e_dev, e_Total_entregas]:
                 campo.delete(0, END)
 
@@ -215,48 +210,45 @@ def ml_rota():
             e_dev.insert(0, tree_lista[8])
             e_Total_entregas.insert(0, tree_lista[9])
 
-        
-
-            # Tentando carregar a imagem
+            # Função para salvar alterações
             def update():
-                # Pegando os dados atualizados
-                entry_data = entry_data.get()
-                e_d_semana = e_d_semana.get()
-                e_valor_rota = e_valor_rota.get()
-                e_km = e_km.get()
-                e_v_comb = e_v_comb.get()
-                e_lucro = e_lucro.get()
-                e_entregas = e_entregas.get()
-                e_dev = e_dev.get()
-                e_Total_entregas = e_Total_entregas.get()
-            
-            
-                lista = [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb, e_lucro, e_entregas, e_dev, e_Total_entregas, valor_id]
+                # Coleta de dados
+                dados = [
+                    entry_data.get(),
+                    e_d_semana.get(),
+                    e_valor_rota.get(),
+                    e_km.get(),
+                    e_v_comb.get(),
+                    e_lucro.get(),
+                    e_entregas.get(),
+                    e_dev.get(),
+                    e_Total_entregas.get(),
+                    valor_id
+                ]
 
-                # Verificação de campos vazios
-                if not all(lista[:-1]):  # Exclui o ID da verificação
+                if not all(dados[:-1]):
                     messagebox.showerror('Erro', 'Preencha todos os campos!')
                     return
 
                 try:
-                    atualizar_dados_ml(lista)  # Ensure this function is defined or imported
+                    atualizar_dados_ml(dados)
                     messagebox.showinfo('Sucesso', 'Os dados foram atualizados com sucesso!')
 
-                    # Limpa os campos
                     for campo in [entry_data, e_d_semana, e_valor_rota, e_km, e_v_comb, e_lucro, e_entregas, e_dev, e_Total_entregas]:
                         campo.delete(0, END)
 
                     mostrar_ml()
 
-                    if 'botao_update' in globals() and bt_update.winfo_exists():
-                    bt_update.destroy()
+                    if 'bt_update' in globals() and bt_update.winfo_exists():
+                        bt_update.destroy()
 
                 except Exception as e:
                     messagebox.showerror('Erro', f'Erro ao atualizar: {e}')
 
             # Botão de salvar alterações
-            bt_update = Button(frame_botao, command=update_dados, text="Salvar Atualizações", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+            bt_update = Button(frame_botao, command=update, text="Salvar Atualizações", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
             bt_update.grid(row=0, column=8)
+
         except IndexError:
             messagebox.showerror('Erro', 'Selecione um dos alunos na tabela')
 
@@ -298,7 +290,7 @@ def ml_rota():
     bt_atualizar = Button(frame_botao, command=update_dados, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
     bt_atualizar.grid(row=0, column=6)
 
-    bt_voltar = Button(frame_botao, command=abrir_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_voltar = Button(frame_botao, command=None, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
     bt_voltar.grid(row=0, column=7)
     #################---------CONFIGURAÇÕES------##################################################################################
     def calendario():
@@ -438,5 +430,23 @@ def ml_rota():
             tree_lucro.insert("", "end", values=item)
     mostrar_ml()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 root.mainloop()
-                                                                                                                                       
+ml_rota()                                                                                                                                       

@@ -18,8 +18,24 @@ pos_y = (altura_tela - altura_root)//2
 # Definir geometria da janela (LxA+X+Y)
 root.geometry(f"{largura_root}x{altura_root}+{pos_x}+{pos_y}")
 
+###############---------FRAME------##################################################################################
+frame_cima = Frame(root, width=900, height=50, bg=co1, relief='flat')
+frame_cima.grid(row=0, column=0, padx=0, pady=0, sticky=NSEW)
+
+frame_baixo = Frame(root, width=900, height=550, bg=co1, relief='flat')
+frame_baixo.grid(row=1, column=0, padx=0, pady=0, sticky=NSEW)
+
+bt_ml = Button(frame_baixo, command=lambda: abrir_painel(), text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+bt_ml.grid(row=0, column=0)
 
 #################---------CONFIGURAÇÕES BOTÕES------##################################################################################
+def abrir_painel():
+    for widget in frame_cima.winfo_children():
+        widget.destroy()
+    for widget in frame_baixo.winfo_children():
+        widget.destroy()
+    painel()
+
 def abrir_ml():
     for widget in frame_cima.winfo_children():
         widget.destroy()
@@ -32,46 +48,63 @@ def abrir_shopee():
     for widget in frame_baixo.winfo_children():
         widget.destroy()
     sp_rota()
+    
+    
+def painel():
+    
+    frame_cima = Frame(root, width=900, height=50, bg=co1, relief='flat')
+    frame_cima.grid(row=0, column=0, padx=0, pady=0, sticky=NSEW)
+    
+    frame_botao = Frame(root, width=900, height=50, bg=co1, relief='flat')
+    frame_botao.grid(row=1, column=0, padx=0, pady=0, sticky=NSEW)
 
-###############---------FRAME------##################################################################################
-frame_cima = Frame(root, width=900, height=50, bg=co1, relief='flat')
-frame_cima.grid(row=0, column=0, padx=0, pady=0, sticky=NSEW)
+    frame_baixo = Frame(root, width=900, height=200, bg=co1, relief='flat')
+    frame_baixo.grid(row=2, column=0, padx=0, pady=0, sticky=NSEW)
+    #################---------TITULO------##################################################################################
+    l_titulo= Label(frame_cima, text="Controle de Rotas e Ganhos", anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
+    l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
+    
+    #################---------BOTÕES------##################################################################################
+    bt_ml = Button(frame_botao, command=abrir_ml, text="Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_ml.grid(row=0, column=0)
 
-frame_baixo = Frame(root, width=900, height=550, bg=co1, relief='flat')
-frame_baixo.grid(row=1, column=0, padx=0, pady=0, sticky=NSEW)
-#################---------TITULO------##################################################################################
-l_titulo= Label(frame_cima, text="Controle de Rotas e Ganhos", anchor=CENTER, font=('Ivy 13 bold'), bg=co6, fg=co0)
-l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
+    bt_sp = Button(frame_botao, command=abrir_shopee, text="Shopee", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_sp.grid(row=0, column=1)
 
-#################---------BOTÕES------##################################################################################
-bt_ml = Button(frame_baixo, command=abrir_ml, text="Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_ml.grid(row=0, column=0)
+    bt_colagem = Button(frame_botao, command=None, text="Colagem", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_colagem.grid(row=0, column=2)
 
-bt_sp = Button(frame_baixo, command=abrir_shopee, text="Shopee", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_sp.grid(row=0, column=1)
+    bt_abast = Button(frame_botao, command=None, text="Abastecimento", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_abast.grid(row=0, column=3)
 
-bt_colagem = Button(frame_baixo, command=None, text="Colagem", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_colagem.grid(row=0, column=2)
+    bt_lucroanual = Button(frame_botao, command=None, text="Lucro Anual", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_lucroanual.grid(row=0, column=4)
 
-bt_abast = Button(frame_baixo, command=None, text="Abastecimento", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_abast.grid(row=0, column=3)
+    bt_lucpormes = Button(frame_botao, command=None, text="Lucro por Mês", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_lucpormes.grid(row=0, column=5)
 
-bt_lucroanual = Button(frame_baixo, command=None, text="Lucro Anual", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_lucroanual.grid(row=0, column=4)
+    bt_contas = Button(frame_botao, command=None, text="Contas", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_contas.grid(row=0, column=6)
 
-bt_lucpormes = Button(frame_baixo, command=None, text="Lucro por Mês", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_lucpormes.grid(row=0, column=5)
-
-bt_contas = Button(frame_baixo, command=None, text="Contas", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_contas.grid(row=0, column=6)
-
-bt_contaml = Button(frame_baixo, command=None, text="Conta Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
-bt_contaml.grid(row=0, column=7)
+    bt_contaml = Button(frame_botao, command=None, text="Conta Mercado Livre", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_contaml.grid(row=0, column=7)
+    
+    l_t_m_ml = Label(frame_baixo, text="Total do Mês Mercado LIvre R$:", font=('Ivy 10 bold'), bg=co1, fg=co6)
+    l_t_m_ml.grid(row=0, column=1)
+    e_t_m_ml = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
+    e_t_m_ml.grid(row=0, column=2)
+    
+    
+    
+    
+    
+    
 
 ############################################################################################################################################
 ###################################### ROTA MERCADO LIVRE ##################################################################################
 #############################################################################################################################################
 def ml_rota():
+    
     
     
     frame_cima = Frame(root, width=900, height=50, bg=co1, relief='flat')
@@ -91,7 +124,16 @@ def ml_rota():
     l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
 
     #################---------CONFIGURAÇÕES BOTÕES------##################################################################################
-    
+    def voltar_painel():
+        for widget in frame_cima.winfo_children():
+            widget.destroy()
+        for widget in frame_baixo.winfo_children():
+            widget.destroy()
+        for widget in frame_botao.winfo_children():
+            widget.destroy()
+        for widget in frame_tabela.winfo_children():
+            widget.destroy()
+        painel()
 
     ################---------CONFIGURAÇÃO DE DADOS------##################################################################################
     v_mes_var = tk.StringVar()
@@ -273,7 +315,7 @@ def ml_rota():
     bt_atualizar = Button(frame_botao, command=update_dados, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
     bt_atualizar.grid(row=0, column=6)
 
-    bt_voltar = Button(frame_botao, command=None, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_voltar = Button(frame_botao, command=voltar_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
     bt_voltar.grid(row=0, column=7)
     #################---------CONFIGURAÇÕES------##################################################################################
     def calendario():
@@ -368,7 +410,7 @@ def ml_rota():
     l_Total_entregas.place(x=190, y=100)
     e_Total_entregas = Entry(frame_baixo, width=10, justify=CENTER, font=('Ivy 10 bold'),  relief='solid', bg=co1, fg=co6)
     e_Total_entregas.place(x=260, y=100)
-
+    
     #Tabela Mercado Livre
     def mostrar_ml():
 
@@ -382,7 +424,7 @@ def ml_rota():
         # atualizar_e_v_mes()  # Removed as it is not defined
 
 
-        app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0,relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co1, fg=co4)
+        app_nome = Label(frame_tabela, text="Registros de Rotas", height=1, pady=0, padx=0,relief="flat", anchor="center", font=('Ivy 10 bold'),bg=co6, fg=co0)
         app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
 
         list_header = ['id', 'Data', 'Dia da Semana', 'Valor de Rota', 'Km ', 'valor Bomba', 'lucro', 'Entregas', 'devolvidas', 'Total']
@@ -438,7 +480,16 @@ def sp_rota():
     l_titulo.place(x=0, y=0, relwidth=1, relheight=1)
 
     #################---------CONFIGURAÇÕES BOTÕES------##################################################################################
-    
+    def voltar_painel():
+        for widget in frame_cima.winfo_children():
+            widget.destroy()
+        for widget in frame_baixo.winfo_children():
+            widget.destroy()
+        for widget in frame_botao.winfo_children():
+            widget.destroy()
+        for widget in frame_tabela.winfo_children():
+            widget.destroy()
+        painel()
 
     ################---------CONFIGURAÇÃO DE DADOS------#################################################################################
     v_mes_var = tk.StringVar()
@@ -624,7 +675,7 @@ def sp_rota():
     bt_atualizar = Button(frame_botao, command=update_dados, text="Atualizar", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
     bt_atualizar.grid(row=0, column=6)
 
-    bt_voltar = Button(frame_botao, command=None, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
+    bt_voltar = Button(frame_botao, command=voltar_painel, text="Painel", bd=9, bg=co1, fg=co6, font=('verdana', 9, 'bold'))
     bt_voltar.grid(row=0, column=7)
     #################---------CONFIGURAÇÕES------##################################################################################
     def calendario():
